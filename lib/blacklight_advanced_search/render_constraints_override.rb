@@ -73,21 +73,22 @@ module BlacklightAdvancedSearch::RenderConstraintsOverride
   def render_search_to_s_filters(my_params)
     content = super(my_params)
 
-    advanced_query = BlacklightAdvancedSearch::QueryParser.new(my_params, blacklight_config)
-
-    unless advanced_query.filters.empty?
-      advanced_query.filters.each_pair do |field, values|
-        # old-style, may still be in history
-        values = values.keys if values.is_a? Hash
-
-        label = facet_field_label(field)
-
-        content << render_search_to_s_element(
-          label,
-          values.join(" OR ")
-        )
-      end
-    end
+    # EWL - Skip the override
+    # advanced_query = BlacklightAdvancedSearch::QueryParser.new(my_params, blacklight_config)
+    #
+    # unless advanced_query.filters.empty?
+    #  advanced_query.filters.each_pair do |field, values|
+    #    # old-style, may still be in history
+    #    values = values.keys if values.is_a? Hash
+    #
+    #    label = facet_field_label(field)
+    #
+    #    content << render_search_to_s_element(
+    #      label,
+    #      values.join(" OR ")
+    #    )
+    #  end
+    #end
     content
   end
 
