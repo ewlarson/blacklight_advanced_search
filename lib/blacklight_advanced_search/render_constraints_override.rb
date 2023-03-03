@@ -94,27 +94,28 @@ module BlacklightAdvancedSearch::RenderConstraintsOverride
   def render_search_to_s_q(my_params)
     content = super(my_params)
 
-    advanced_query = BlacklightAdvancedSearch::QueryParser.new(my_params, blacklight_config)
-
-    if (advanced_query.keyword_queries.length > 1 &&
-        advanced_query.keyword_op == "OR")
-      # Need to do something to make the inclusive-or search clear
-
-      display_as = advanced_query.keyword_queries.collect do |field, query|
-        h(blacklight_config.search_fields[field][:label] + ": " + query)
-      end.join(" ; ")
-
-      content << render_search_to_s_element("Any of",
-        display_as,
-        :escape_value => false
-                                           )
-    elsif !advanced_query.keyword_queries.empty?
-      advanced_query.keyword_queries.each_pair do |field, query|
-        label = blacklight_config.search_fields[field][:label]
-
-        content << render_search_to_s_element(label, query)
-      end
-    end
+    # EWL - Skip the override
+    #advanced_query = BlacklightAdvancedSearch::QueryParser.new(my_params, blacklight_config)
+    #
+    #if (advanced_query.keyword_queries.length > 1 &&
+    #    advanced_query.keyword_op == "OR")
+    #  # Need to do something to make the inclusive-or search clear
+    #
+    #  display_as = advanced_query.keyword_queries.collect do |field, query|
+    #    h(blacklight_config.search_fields[field][:label] + ": " + query)
+    #  end.join(" ; ")
+    #
+    #  content << render_search_to_s_element("Any of",
+    #    display_as,
+    #    :escape_value => false
+    #                                       )
+    #elsif !advanced_query.keyword_queries.empty?
+    #  advanced_query.keyword_queries.each_pair do |field, query|
+    #    label = blacklight_config.search_fields[field][:label]
+    #
+    #   content << render_search_to_s_element(label, query)
+    #  end
+    #end
 
     content
   end
